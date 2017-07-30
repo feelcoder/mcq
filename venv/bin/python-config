@@ -1,4 +1,4 @@
-#!/home/felcoder/PycharmProjects/mcq/venv/bin/python
+#!/root/python tuto/mcqSite/venv/bin/python
 
 import sys
 import getopt
