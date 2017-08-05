@@ -1,0 +1,34 @@
+<!Doctype HTML>
+
+<html>
+    <head>
+        <title>MCQ APP</title>
+        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='css/quiz.css')}}" />
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="{{url_for('static', filename='js/quiz.js')}}"></script>
+    </head>
+    <body>
+        <div class="cover">
+          <div class="container">
+            <div class="row text-center">
+              <div class="col-6-lg" id="quiz">
+                <h1 id="quiz-name"></h1>
+                <button class="btn" id="prev-question-button"><i class="fa fa-arrow-left fa-2x"></i></button>
+                <button class="btn" id="next-question-button"><i class="fa fa-arrow-right fa-2x"></i></button>
+                <button class="btn" id="submit-button"><i class="fa fa-check fa-2x"></i></button>
+                <div id="quiz-results">
+                  <p id="quiz-results-message"></p>
+                  <p id="quiz-results-score"></p>
+                  <div class="btn-group middle">
+                    <a href="tweet-result" target="_blank"><i class="fa fa-twitter fa-3x"></i></a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.animalfriends.org.uk/" target="_blank"><i class="fa fa-facebook fa-3x"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </body>
+</html>
