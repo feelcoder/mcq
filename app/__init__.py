@@ -23,9 +23,14 @@ def not_found(error):
 @app.route('/')
 def index():
     return render_template('index.html')
+
+#Quiz page
+@app.route('/takequiz/<name>/')
+def quiz(name):
+    return render_template('quiz/takeQuiz.html', name=name)
+
 # Import a module / component using its blueprint handler variable (mod_auth)
 from app.authentication.controllers import authentication as auth
-
 # Register blueprint(s)
 app.register_blueprint(auth)
 # app.register_blueprint(xyz_module)
