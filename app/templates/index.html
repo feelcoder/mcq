@@ -1,28 +1,12 @@
-<!Doctype HTML>
-
-<html>
-    <head>
-        <title>MCQ APP</title>
-        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-         <link type="text/css" rel="stylesheet"
-        href="{{ url_for('static',
-              filename='static/css/quiz.css')}}" />
-    </head>
-    <body>
-        <div class="container">
-            <div class="header">
-                <nav>
-                    <ul class="nav nav-pills pull-right">
-                        <li role="presentation" class="active"><a href="#">Home</a>
-                        </li>
-                        <li role="presentation"><a href="#">Sign Up</a>
-                        </li>
-                        <li role="quiz"><a href="{{ url_for('quiz', name='jojo') }}"><button>Home</button></a>
-                        </li>
-                    </ul>
-                </nav>
-                <h3 class="text-muted">MCQ Management System APP</h3>
-            </div>
-        </div>
-    </body>
-</html>
+{% extends "base.html" %}
+{% block title %}MCQ APP{% endblock %}
+ {% block sidebar %}
+  <div class="sidebar col-md-4">
+     sidebar
+  </div>
+  {% endblock %}
+  {% block main %}
+  <div class="main col-md-8">
+       main                 
+  </div>
+  {% endblock %}
