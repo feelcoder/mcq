@@ -23,6 +23,9 @@ def not_found(error):
 @app.route('/')
 def index():
     return render_template('index.html')
+@app.route('/home')
+def home():
+    return render_template('home.html')
 # Import a module / component using its blueprint handler variable (mod_auth)
 from app.authentication.controllers import authentication as auth
 

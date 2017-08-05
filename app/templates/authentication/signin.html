@@ -1,4 +1,12 @@
-{% macro render_field(field, placeholder=None) %}
+{% extends "base.html" %}
+{% block title %}Sign IN {% endblock %}
+ {% block sidebar %}
+  <div class="sidebar col-md-4">
+  </div>
+  {% endblock %}
+  {% block main %}
+  <div class="main col-md-8">
+      {% macro render_field(field, placeholder=None) %}
 {% if field.errors %}
 <div>
 {% elif field.flags.error %}
@@ -47,4 +55,6 @@
       <button type="submit" name="submit">Sign in</button>
     </form>  
   </div>
-</div>
+</div>              
+  </div>
+  {% endblock %}
