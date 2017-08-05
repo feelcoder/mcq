@@ -19,6 +19,10 @@ db = SQLAlchemy(app)
 def not_found(error):
     return render_template('404.html'), 404
 
+# index page
+@app.route('/')
+def index():
+    return render_template('index.html')
 # Import a module / component using its blueprint handler variable (mod_auth)
 from app.authentication.controllers import authentication as auth
 
