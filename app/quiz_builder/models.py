@@ -31,7 +31,7 @@ class Quiz(Base):
     start_date = db.Column(db.DateTime,  nullable=True)
 
     # New instance instantiation procedure
-    def __init__(self, title, instructions, uid ,time ,start_date ,total_marks):
+    def __init__(self, title, instructions, uid ,time ,start_date ,total_marks,closed):
 
         self.title = title
         self.instructions = instructions
@@ -39,6 +39,7 @@ class Quiz(Base):
         self.time = time
         self.start_date = start_date
         self.total_marks = total_marks
+        self.closed = closed
 
     def __repr__(self):
         return '<Quiz %r>' % (self.title)

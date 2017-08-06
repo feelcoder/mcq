@@ -23,6 +23,16 @@ def quizform():
     # If sign in form is submitted
     form = QuizAddForm(request.form)
     if form.validate_on_submit():
-        quiz = Quiz()
-        
+        if form.closed.data equal "pv":
+            closed = 1
+        else:
+            closed = 0  
+        quiz = Quiz(form.title.data, form.instructions.data, form.uid.data ,form.time.data ,form.start_date.data ,form.total_marks.data, closed)
+        db.session(quiz)
+        db.commit()
+
+        if quiz.id:
+            flash('Quiz %s succesfully created' % quiz.title)
+            redirect(url_for(''))  
+
     return render_template("quiz_builder/quizadd.html", form=form)

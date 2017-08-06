@@ -22,4 +22,4 @@ class QuizAddForm(Form):
         'Visibility', choices=[('pv', 'Private'), ('pu', 'Public')])
     start_date = DateTimeField("Start time", [Required(message='Time quiz starts must be specifeid')])
     submit = SubmitField("create")
-    uid= HiddenField()
+    uid= HiddenField(default="1234567890")
