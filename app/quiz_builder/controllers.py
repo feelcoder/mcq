@@ -17,9 +17,12 @@ from app.quiz_builder.models import Quiz
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
 quiz = Blueprint('quiz', __name__, url_prefix='/quiz')
 # Set the route and accepted methods
-@quiz.route('/add/')
+@quiz.route('/add',methods=['GET','POST'])
 def quizform():
 
     # If sign in form is submitted
     form = QuizAddForm(request.form)
+    if form.validate_on_submit():
+        quiz = Quiz()
+        
     return render_template("quiz_builder/quizadd.html", form=form)
