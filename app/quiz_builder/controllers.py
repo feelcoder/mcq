@@ -23,7 +23,7 @@ def quizform():
     # If sign in form is submitted
     form = QuizAddForm(request.form)
     if form.validate_on_submit():
-        if form.closed.data equal "pv":
+        if form.closed.data ==  "pv":
             closed = 1
         else:
             closed = 0  
