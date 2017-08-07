@@ -30,12 +30,12 @@ CREATE TABLE IF NOT EXISTS `mcq-database`.`user` (
   `last_name` VARCHAR(45) NULL,
   `email` VARCHAR(60) NULL,
   `status` CHAR(10) NULL DEFAULT 'student',
-  `created` DATETIME NULL DEFAULT 'currenttimestamp',
+  `created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `lastsigned_in` VARCHAR(45) NULL,
   `username` VARCHAR(45) NULL,
   `session` VARCHAR(32) NULL,
   `password` VARCHAR(64) NULL,
-  `permission` INT(11) NULL DEFAULT 0 , student=0;instructor=1 ,admin=2,
+  `permission` INT(11) NULL DEFAULT 0 ,
   `banned` TINYINT(1) NULL DEFAULT 0,
   `deleted` TINYINT(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`),
@@ -47,11 +47,11 @@ ENGINE = InnoDB;
 -- Table `mcq-database`.`quiz`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mcq-database`.`quiz` (
-  `id` INT(8) NULL,
+  `id` INT(8) NOT NULL,
   `uid` VARCHAR(45) NULL,
   `quid` VARCHAR(45) NULL,
   `title` VARCHAR(200) NULL,
-  `created` DATETIME NULL,
+  `created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `time` INT(3) NULL,
   `start_date` VARCHAR(45) NULL,
   `instructions` TEXT(300) NULL,
@@ -78,11 +78,11 @@ ENGINE = InnoDB;
 -- Table `mcq-database`.`question`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mcq-database`.`question` (
-  `qtn_Id` INT(8) NULL,
+  `qtn_Id` INT(8) NOT NULL,
   `quid` VARCHAR(45) NULL,
   `type` VARCHAR(45) NULL DEFAULT 'radio',
   `text` TEXT(6000) NULL,
-  `created` DATETIME NULL DEFAULT 'currentimestamp',
+  `created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `qtn_mark` INT(3) NULL,
   `quiz_id` INT(8) NOT NULL,
   `quiz_user_id` INT NOT NULL,
@@ -101,10 +101,10 @@ ENGINE = InnoDB;
 -- Table `mcq-database`.`question_options`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mcq-database`.`question_options` (
-  `id` INT(8) NULL,
+  `id` INT(8) NOT NULL,
   `qtn_id:` INT(8) NULL,
   `text` TEXT(6000) NULL,
-  `created` DATETIME NULL DEFAULT 'currentimstamp',
+  `created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `answer` TINYINT(1) NULL DEFAULT 0,
   `question_qtn_Id` INT(8) NOT NULL,
   `question_quiz_id` INT(8) NOT NULL,
@@ -124,7 +124,7 @@ ENGINE = InnoDB;
 -- Table `mcq-database`.`answer`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mcq-database`.`answer` (
-  `Id` INT(8) NULL AUTO_INCREMENT,
+  `Id` INT(8) NOT NULL AUTO_INCREMENT,
   `qnt_id` INT(8) NULL,
   `quid` VARCHAR(45) NULL,
   `option_ids` TEXT(6000) NULL,
