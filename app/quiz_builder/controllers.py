@@ -28,8 +28,8 @@ def quizform():
         else:
             closed = 0  
         quiz = Quiz(form.title.data, form.instructions.data, form.uid.data ,form.time.data ,form.start_date.data ,form.total_marks.data, closed)
-        db.session(quiz)
-        db.commit()
+        db.session.add(quiz)
+        db.session.commit()
 
         if quiz.id:
             flash('Quiz %s succesfully created' % quiz.title)
