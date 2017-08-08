@@ -1,5 +1,7 @@
 from app import db
 from app.authentication.models import Base
+import random
+import string
 
 # Define a Quiz model
 
@@ -40,6 +42,7 @@ class Quiz(Base):
         self.start_date = start_date
         self.total_marks = total_marks
         self.closed = closed
+        self.quid = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(26))
 
     def __repr__(self):
         return '<Quiz %r>' % (self.title)

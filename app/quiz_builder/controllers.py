@@ -30,9 +30,9 @@ def quizform():
         quiz = Quiz(form.title.data, form.instructions.data, form.uid.data ,form.time.data ,form.start_date.data ,form.total_marks.data, closed)
         db.session.add(quiz)
         db.session.commit()
-
+        print(" the id is %s" %quiz.id);
         if quiz.id:
             flash('Quiz %s succesfully created' % quiz.title)
-            redirect(url_for(''))  
+            return redirect("/home")  
 
     return render_template("quiz_builder/quizadd.html", form=form)
