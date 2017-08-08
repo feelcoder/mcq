@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Statistics{% endblock %}
+ {% block sidebar %}
+  <div class="sidebar col-md-4">
+     sidebar
+  </div>
+  {% endblock %}
+  {% block main %}
+  <div class="main col-md-8">
+    main statistic
+      {% if users %}
+        {% for temp in users %}
+        <p>hello</p>
+        <p>{{ temp.id }}</p>
+        <p>{{ temp.status}}</p>
+        <p>{{ temp.username}}</p>
+       {% endfor %}
+    {% endif %}
+  </div>
+  {% endblock %}
