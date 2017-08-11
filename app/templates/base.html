@@ -1,0 +1,35 @@
+<html>
+<head>
+{% block head %}
+<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>{% block title %}{% endblock %} - My Application</title>
+{% endblock %}
+</head>
+<body>
+  <div class="container">
+{% block body %}
+    <div class="header">
+     {% block header %}
+                <nav>
+                    <ul class="nav nav-pills pull-right">
+                        <li role="presentation" class="active"><a href="/home">Home</a>
+                        </li>
+                        <li role="presentation"><a href="/auth/signin">Sign in</a>
+                        </li>
+                        <li role="quiz"><a href="{{ url_for('quiz', name='jojo') }}"><button>Home</button></a>
+                        </li>
+                    </ul>
+                </nav>
+                <h3 class="text-muted">MCQ Management System APP</h3>
+     {% endblock %}
+     </div>
+     <div class="main-content">
+         {% block sidebar %}
+         {% endblock %}
+         {% block main %}
+         {% endblock %}
+     </div>
+{% endblock %}
+  </div>
+</body>
+</html>
