@@ -23,3 +23,8 @@ class QuizAddForm(Form):
     start_date = DateTimeField("Start time", [Required(message='Time quiz starts must be specifeid')],default= datetime.datetime.now())
     submit = SubmitField("create")
     uid= HiddenField(default="first1234")
+
+class QuestionForm(Form):
+    text = TextField('Question',[Required('Title cannot be left blank')])
+    
+
