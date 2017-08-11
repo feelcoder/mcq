@@ -46,3 +46,11 @@ class Quiz(Base):
 
     def __repr__(self):
         return '<Quiz %r>' % (self.title)
+
+class Question(Base):
+
+    __tablename__ = 'question'
+
+class QuestionOption(Base):
+
+    __tablename__ = 'question_options'
