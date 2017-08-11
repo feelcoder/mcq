@@ -21,12 +21,11 @@ statistic = Blueprint('statistic', __name__, url_prefix='/stat')
 # Set the route and accepted methods
 @statistic.route('/statistic',methods=['GET','POST'])
 def statResult():
-    db.create_all()
 
+    db.create_all()
     users = User.query.all()
 
     for temp in users:
         print temp.id
-
     return render_template('statistic/statistic.html', users=users)
 
