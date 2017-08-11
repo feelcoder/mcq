@@ -1,7 +1,7 @@
 <html>
 <head>
 {% block head %}
-<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <title>{% block title %}{% endblock %} - My Application</title>
 {% endblock %}
 </head>
@@ -17,6 +17,8 @@
                         <li role="presentation"><a href="/auth/signin">Sign in</a>
                         </li>
                         <li role="quiz"><a href="{{ url_for('quiz', name='jojo') }}"><button>Home</button></a>
+                        </li>
+                        <li role="quiz"><a href="/stat/statistic"><button>Home</button></a>
                         </li>
                     </ul>
                 </nav>

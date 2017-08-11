@@ -1,6 +1,6 @@
 # Import Form and RecaptchaField (optional)
 from flask_wtf import Form  # , RecaptchaField
-
+import datetime
 # Import Form elements such as TextField and BooleanField (optional)
 from wtforms import TextField, IntegerField, SelectField, DateTimeField, HiddenField, FloatField, SubmitField  # BooleanField
 
@@ -20,6 +20,11 @@ class QuizAddForm(Form):
         "Total quiz marks must be specified")])
     closed = SelectField(
         'Visibility', choices=[('pv', 'Private'), ('pu', 'Public')])
-    start_date = DateTimeField("Start time", [Required(message='Time quiz starts must be specifeid')])
+    start_date = DateTimeField("Start time", [Required(message='Time quiz starts must be specifeid')],default= datetime.datetime.now())
     submit = SubmitField("create")
-    uid= HiddenField(default="1234567890")
+    uid= HiddenField(default="first1234")
+
+class QuestionForm(Form):
+    text = TextField('Question',[Required('Title cannot be left blank')])
+    
+

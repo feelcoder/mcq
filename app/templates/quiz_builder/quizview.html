@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Quiz: {{ quiz.title }}{% endblock %}
+ {% block sidebar %}
+  <div class="sidebar col-md-4">
+     sidebar
+  </div>
+  {% endblock %}
+  {% block main %}
+  <div class="main col-md-8">
+       <div class="quiz-title">
+            <h1>{{ quiz.title }}</h1>
+       </div>  
+       <div class="quiz-description">
+            <p>{{ quiz.instructions }}</p>
+        </div>   
+        <div >
+            <div><span class="quiz-duration"> Duration: {{ quiz.time}}</span> &nbsp;&nbsp;<span class="quiz-timestart">Starts: {{ quiz.start_date }}</span> &nbsp;&nbsp;<span class="quiz-marks">Marks: {{ quiz.total_marks }}</span></div>
+        </div>     
+         <div class="questions-add"><a href="/quiz/{{ quiz.id }}/question/add" class="btn btn-large btn-primary">Add Question</a></div> 
+        <div class="questions-list"></div> 
+       
+  </div>
+  {% endblock %}
