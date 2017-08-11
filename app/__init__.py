@@ -4,6 +4,9 @@ from flask import Flask, render_template
 # Import SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
 
+# Import Bootstrap
+from flask_bootstrap import Bootstrap
+
 # Define the WSGI application object
 app = Flask(__name__)
 
@@ -13,6 +16,9 @@ app.config.from_object('config')
 # Define the database object which is imported
 # by modules and controllers
 db = SQLAlchemy(app)
+
+# Bootstrap
+bootstrap = Bootstrap(app) 
 
 # Sample HTTP error handling
 @app.errorhandler(404)
@@ -34,8 +40,12 @@ def quiz(name):
 
 # Import a module / component using its blueprint handler variable (mod_auth)
 from app.authentication.controllers import authentication as auth
+from app.quiz_builder.controllers import quiz as quiz
+from  app.statistic.controllers import statistic as stat
 # Register blueprint(s)
 app.register_blueprint(auth)
+app.register_blueprint(quiz)
+app.register_blueprint(stat)
 # app.register_blueprint(xyz_module)
 # ..
 
