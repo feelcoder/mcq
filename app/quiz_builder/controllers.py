@@ -54,8 +54,8 @@ def viewQuiz(id):
 @quiz.route('/exams', methods=['GET', 'POST'])
 def statResult():
 
-    quiz = Quiz.query.filter_by(uid="first1234").all()
-    quizCount = Quiz.query.filter_by(uid="first1234").count()
+    quiz = Quiz.query.filter_by(uid=1234).all()
+    quizCount = Quiz.query.filter_by(uid=1234).count()
     return render_template('quiz/list.html', quiz=quiz, quizCount=quizCount)
 
 
@@ -82,7 +82,7 @@ def questionAdd(id, qtn_id):
             new_option = form.option.append_entry();
             new_option.answer.data = qtn_option.answer
             new_option.text.data = qtn_option.text
-            
+
       
     quiz = Quiz.query.filter_by(id=id).first()
     for entry in form.option.entries:

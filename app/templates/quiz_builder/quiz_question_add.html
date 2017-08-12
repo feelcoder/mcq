@@ -14,17 +14,18 @@
       {{ form.csrf_token }}
           <div class="form-group">
             <label for="question">Question</label>
-                {{ form.text() }}
+                {{ form.text(class_="form-control") }}
           </div>
           {{ form.qtype() }}
           {{ form.qtn_mark() }}
-          
-          <div class="form-group collections">
-                 {% for l in form.option %}
+          {% for l in form.option %}
+          <div class="form-group  form-inline">
+              
                   {{ l.form.csrf_token }}
-                    {{ l.form.answer }} {{ l.form.text }} <span class="btn btn-small">delete</span><br />
-                {% endfor %}
+                    {{ l.form.answer }} {{ l.form.text(class_="form-control") }} <span class="btn btn-danger">delete</span><span class="btn btn-success">Add</span>
+                
           </div>
+          {% endfor %}
           <div class="form-group">
               {{ form.submit() }}
           </div>

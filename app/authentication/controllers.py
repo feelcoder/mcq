@@ -62,7 +62,7 @@ def login():
         cur = mysql.connection.cursor()
 
         # Get user by username
-        result = cur.execute("SELECT * FROM users WHERE username = %s", [username])
+        result = cur.execute("SELECT * FROM user WHERE username = %s", [username])
 
         if result > 0:
             # Get stored hash
@@ -70,13 +70,13 @@ def login():
             password = data['password']
 
             # Compare Passwords
-            if sha256_crypt.verify(password_candidate, password):
+            if sha256_crypt.verify(password_candidate,password):
                 # Passed
                 session['logged_in'] = True
                 session['username'] = username
 
                 flash('You are now logged in', 'success')
-                return redirect('dashboard')
+                return redirect('/stat/statistic')
             else:
                 error = 'Invalid login'
                 return render_template('authentication/login.html', error=error)

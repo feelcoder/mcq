@@ -4,6 +4,7 @@
   <h1>Register</h1>
   {% from "includes/_formhelpers.html" import render_field %}
   <form method="POST" action="/auth/register">
+   {{ form.csrf_token }}
     <div class="form-group">
       {{render_field(form.first_name, class_="form-control")}}
     </div>
