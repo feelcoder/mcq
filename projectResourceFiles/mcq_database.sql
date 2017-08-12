@@ -77,11 +77,8 @@ CREATE TABLE IF NOT EXISTS `mcq-database`.`question` (
   `text` TEXT(6000) NULL,
   `created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `qtn_mark` INT(3) NULL,
-  `quiz_id` INT(8) NOT NULL,
-  `quiz_user_id` INT NOT NULL,
-  `quiz_question_qtn_Id` INT(8) NOT NULL,
   PRIMARY KEY (`qtn_id`),
-  INDEX `fk_question_quiz1_idx` (`quiz_id` ASC, `quiz_user_id` ASC, `quiz_question_qtn_Id` ASC),
+  INDEX `fk_question_quiz1_idx` (`quiz_id` ASC),
   CONSTRAINT `fk_question_quiz1`
     FOREIGN KEY (`quiz_id`)
     REFERENCES `mcq-database`.`quiz` (`id` )

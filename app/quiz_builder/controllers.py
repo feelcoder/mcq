@@ -50,16 +50,22 @@ def viewQuiz(id):
 @quiz.route('/<id>/question/add', methods=['GET', 'POST'])
 def questionAdd(id):
     form = QuestionForm(request.form)
+    quiz = Quiz.query.filter_by(id = id).first()
     if form.validate_on_submit():
         # build question tables
         qtn_text = form.text.data
         qtn_type = form.type.data
         qtn_mark = form.qtn_mark.data
-        question = Question(qtn_text, qtn_type, qtn_mark)
+        question = Question(id,qtn_text, qtn_type, qtn_mark)
         db.session.add(question)
         db.session.commit()
         if question.id:
-            print("the type of form qnts options is %s " %
-                  type(form.qtn_options.data))
-    
-    return redirect('/home')
+            for (answer, text) in questionOptions.entries.data:
+                option  = QuestionOption(question.id, answer, text)
+                db.session.add(option)
+            db.session.commit()
+            redirect("/" + question.id + "/question/add")
+        else:
+            redirect("/home")
+
+    return render_template("quiz_builder/quiz_question_add.html", form=form, quiz=quiz)
