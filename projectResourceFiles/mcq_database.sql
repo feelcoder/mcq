@@ -25,7 +25,6 @@ USE `mcq-database` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mcq-database`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `uid` VARCHAR(45) NULL,
   `first_name` VARCHAR(45) NULL,
   `last_name` VARCHAR(45) NULL,
   `email` VARCHAR(60) NULL,
@@ -38,8 +37,7 @@ CREATE TABLE IF NOT EXISTS `mcq-database`.`user` (
   `permission` INT(11) NULL DEFAULT 0 ,
   `banned` TINYINT(1) NULL DEFAULT 0,
   `deleted` TINYINT(1) NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -48,8 +46,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mcq-database`.`quiz` (
   `id` INT(8) NOT NULL AUTO_INCREMENT,
-  `uid` VARCHAR(45) NULL,
-  `quid` VARCHAR(45) NULL,
+  `uid` INT NOT NULL,
   `title` VARCHAR(200) NULL,
   `created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `time` INT(3) NULL,
@@ -60,10 +57,7 @@ CREATE TABLE IF NOT EXISTS `mcq-database`.`quiz` (
   `student_count` INT(8) NULL DEFAULT 0,
   `show_qtn_marks` TINYINT(1) NULL DEFAULT 0,
   `total_marks` INT(4) NULL DEFAULT 0,
-  `question_qtn_Id` INT(8) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `quid_UNIQUE` (`quid` ASC),
-  INDEX `fk_quiz_user_idx` (`uid` ASC))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -71,22 +65,13 @@ ENGINE = InnoDB;
 -- Table `mcq-database`.`question`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mcq-database`.`question` (
-  `qtn_Id` INT(8) NOT NULL,
-  `quid` VARCHAR(45) NULL,
+  `id` INT(8) NOT NULL AUTO_INCREMENT,
+  `quid` INT(8) NOT NULL,
   `type` VARCHAR(45) NULL DEFAULT 'radio',
   `text` TEXT(6000) NULL,
   `created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `qtn_mark` INT(3) NULL,
-  `quiz_id` INT(8) NOT NULL,
-  `quiz_user_id` INT NOT NULL,
-  `quiz_question_qtn_Id` INT(8) NOT NULL,
-  PRIMARY KEY (`qtn_id`),
-  INDEX `fk_question_quiz1_idx` (`quiz_id` ASC, `quiz_user_id` ASC, `quiz_question_qtn_Id` ASC),
-  CONSTRAINT `fk_question_quiz1`
-    FOREIGN KEY (`quiz_id`)
-    REFERENCES `mcq-database`.`quiz` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -94,22 +79,12 @@ ENGINE = InnoDB;
 -- Table `mcq-database`.`question_options`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mcq-database`.`question_options` (
-  `id` INT(8) NOT NULL,
-  `qtn_id:` INT(8) NULL,
+  `id` INT(8) NOT NULL AUTO_INCREMENT,
+  `qtn_id` INT(8) NULL,
   `text` TEXT(6000) NULL,
   `created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `answer` TINYINT(1) NULL DEFAULT 0,
-  `question_qtn_Id` INT(8) NOT NULL,
-  `question_quiz_id` INT(8) NOT NULL,
-  `question_quiz_user_id` INT NOT NULL,
-  `question_quiz_question_qtn_Id` INT(8) NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_question_options_question1_idx` (`question_qtn_Id` ASC, `question_quiz_id` ASC, `question_quiz_user_id` ASC, `question_quiz_question_qtn_Id` ASC),
-  CONSTRAINT `fk_question_options_question1`
-    FOREIGN KEY (`question_qtn_Id`)
-    REFERENCES `mcq-database`.`question` (`qtn_Id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -117,25 +92,11 @@ ENGINE = InnoDB;
 -- Table `mcq-database`.`answer`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mcq-database`.`answer` (
-  `Id` INT(8) NOT NULL AUTO_INCREMENT,
+  `id` INT(8) NOT NULL AUTO_INCREMENT,
   `qnt_id` INT(8) NULL,
-  `quid` VARCHAR(45) NULL,
   `option_ids` TEXT(6000) NULL,
   `quiz_id` INT(8) NOT NULL,
-  `question_qtn_Id` INT(8) NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_answer_quiz_idx` (`quiz_id` ASC),
-  INDEX `fk_answer_question1_idx` (`question_qtn_Id` ASC),
-  CONSTRAINT `fk_answer_quiz`
-    FOREIGN KEY (`quiz_id`)
-    REFERENCES `mcq-database`.`quiz` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_answer_question1`
-    FOREIGN KEY (`question_qtn_Id`)
-    REFERENCES `mcq-database`.`question` (`qtn_Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -145,19 +106,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `mcq-database`.`answer_has_answer` (
   `answer_Id` INT(8) NOT NULL,
   `answer_Id1` INT(8) NOT NULL,
-  PRIMARY KEY (`answer_Id`),
-  INDEX `fk_answer_has_answer_answer2_idx` (`answer_Id1` ASC),
-  INDEX `fk_answer_has_answer_answer1_idx` (`answer_Id` ASC),
-  CONSTRAINT `fk_answer_has_answer_answer1`
-    FOREIGN KEY (`answer_Id`)
-    REFERENCES `mcq-database`.`answer` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_answer_has_answer_answer2`
-    FOREIGN KEY (`answer_Id1`)
-    REFERENCES `mcq-database`.`answer` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`answer_Id`))
 ENGINE = InnoDB;
 
 USE `mcq-database` ;

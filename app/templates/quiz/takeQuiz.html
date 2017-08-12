@@ -18,7 +18,7 @@
           <div class="container">
             <div class="row text-center">
               <div class="col-6-lg" id="quiz">
-                <h1 id="quiz-name"></h1>
+                {% block title %}Statistics{% endblock %}
                 <button class="btn" id="prev-question-button"><i class="fa fa-arrow-left fa-2x"></i></button>
                 <button class="btn" id="next-question-button"><i class="fa fa-arrow-right fa-2x"></i></button>
                 <button class="btn" id="submit-button"><i class="fa fa-check fa-2x"></i></button>
@@ -27,7 +27,11 @@
                   <p id="quiz-results-score"></p>
                   <div class="btn-group middle">
                     <a href="tweet-result" target="_blank"><i class="fa fa-twitter fa-3x"></i></a>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.animalfriends.org.uk/" target="_blank"><i class="fa fa-facebook fa-3x"></i></a>
+                    {% if quiz %}
+                          {% for temp in quiz %}
+                              sdsdsd
+                          {% endfor %}
+                    {% endif %}
                   </div>
                 </div>
               </div>

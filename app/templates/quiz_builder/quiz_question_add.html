@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Create Question{% endblock %}
+ {% block sidebar %}
+  <div class="sidebar col-md-4">
+     sidebar
+  </div>
+  {% endblock %}
+  {% block main %}
+  <div class="main col-md-8">
+      <h1>{{ quiz.title }}</h1>
+
+      <form action="/quiz/{{ quiz.id }}/question/add" method="POST">
+      {{ form.csrf_token }}
+          <div class="form-group">
+            <label for="question">Question</label>
+                {{ form.text() }}
+          </div>
+          {{ form.qtype() }}
+          {{ form.qtn_mark() }}
+          
+          <div class="form-group collections">
+                 {% for l in form.option %}
+                  {{ l.form.csrf_token }}
+                    {{ l.form.answer }} {{ l.form.text }} <span class="btn btn-small">delete</span><br />
+                {% endfor %}
+          </div>
+          <div class="form-group">
+              {{ form.submit() }}
+          </div>
+      </form>     
+  </div>
+  {% endblock %}
