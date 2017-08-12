@@ -10,7 +10,7 @@ from werkzeug import check_password_hash, generate_password_hash
 from app import db
 
 # Import module forms
-from app.quiz_builder.forms import QuizAddForm, QuestionForm, QuestionOptionForm
+from app.quiz_builder.forms import QuizAddForm, QuestionForm, QuestionOptionForm, PassQuizForm
 # Import module models (i.e. User)
 from app.quiz_builder.models import Quiz, Question, QuestionOption
 
@@ -54,21 +54,47 @@ def viewQuiz(id):
 @quiz.route('/exams', methods=['GET', 'POST'])
 def statResult():
 
+<<<<<<< HEAD
     quiz = Quiz.query.filter_by(uid=1234).all()
     quizCount = Quiz.query.filter_by(uid=1234).count()
+=======
+<<<<<<< HEAD
+    quiz = Quiz.query.filter_by(uid = "1234").all();
+    quizCount = Quiz.query.filter_by(uid="1234").count();
+    return render_template('quiz/list.html', quiz = quiz)
+=======
+    quiz = Quiz.query.filter_by(uid="first1234").all()
+    quizCount = Quiz.query.filter_by(uid="first1234").count()
+>>>>>>> 55a6dc0e00e41c458c5fe580bfdd0b995e55c7dc
     return render_template('quiz/list.html', quiz=quiz, quizCount=quizCount)
+>>>>>>> 0a8eec8eb6dcc93617c2d83863461093f343a6cb
 
 
-@quiz.route('questions/interview/<id>', methods=['GET'])
+@quiz.route('/live/<id>', methods=['GET'])
 def interview(id):
     # get quiz questions from database
     currentQuiz = Quiz.query.filter_by(id=id).first()
     questions = Question.query.filter_by(quid=id).all()
+<<<<<<< HEAD
+    for question in questions: 
+        tmpOptions = QuestionOption.query.filter_by(qtn_id=question.id).all()
+        question.options = tmpOptions
+    return render_template("quiz/takeQuiz.html", quiz=currentQuiz, questions=questions)
+
+@quiz.route('/save', methods=['GET', 'POST'])
+def save():
+    form = PassQuizForm(request.form)
+    print(form)
+
+@quiz.route('/<id>/question/add', methods=['GET', 'POST'])
+def questionAdd(id):
+=======
     return render_template("quiz/takeQuiz.html", quiz=currentQuiz)
 
 @quiz.route('/<id>/question/add', methods=['GET', 'POST'], defaults={'qtn_id': None})
 @quiz.route('/<id>/question/add/<qtn_id>', methods=['GET', 'POST'])
 def questionAdd(id, qtn_id):
+>>>>>>> 0a8eec8eb6dcc93617c2d83863461093f343a6cb
     form = QuestionForm(request.form)
     if request.method == 'GET' and qtn_id is not None:
         question = Question.query.filter_by(id=qtn_id).first()
