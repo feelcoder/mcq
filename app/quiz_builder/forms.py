@@ -23,7 +23,7 @@ class QuizAddForm(Form):
     start_date = DateTimeField("Start time", [Required(
         message='Time quiz starts must be specifeid')], default=datetime.datetime.now())
     submit = SubmitField("create")
-    uid = HiddenField(default="first1234")
+    uid = HiddenField(default=1234)
 
 
 class QuestionOptionForm(Form):
@@ -34,5 +34,7 @@ class QuestionOptionForm(Form):
 
 class QuestionForm(Form):
     text = TextField('Question', [Required('Title cannot be left blank')])
+    qtype = HiddenField(validators=[Required('')],default="radio")
+    qtn_mark = HiddenField(validators=[Required('')],default=1)
     option = FieldList(FormField(QuestionOptionForm), min_entries=4)
     submit = SubmitField("create")

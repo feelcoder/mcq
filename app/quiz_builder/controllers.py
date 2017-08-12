@@ -1,7 +1,8 @@
 # Import flask dependencies
 from flask import Blueprint, request, render_template, \
     flash, g, session, redirect, url_for
-
+from inspect import getmembers
+from pprint import pprint
 # Import password / encryption helper tools
 from werkzeug import check_password_hash, generate_password_hash
 
@@ -50,21 +51,36 @@ def viewQuiz(id):
 @quiz.route('/<id>/question/add', methods=['GET', 'POST'])
 def questionAdd(id):
     form = QuestionForm(request.form)
-    quiz = Quiz.query.filter_by(id = id).first()
+    quiz = Quiz.query.filter_by(id=id).first()
+    for entry in form.option.entries:
+        pprint(entry.data)
+    print(form.validate_on_submit())
     if form.validate_on_submit():
         # build question tables
+        # pprint(getmembers(form))
+        print("we are in validates submit")
         qtn_text = form.text.data
-        qtn_type = form.type.data
+        qtn_type = form.qtype.data
         qtn_mark = form.qtn_mark.data
-        question = Question(id,qtn_text, qtn_type, qtn_mark)
+        question = Question(quid=id, text=qtn_text, type=qtn_type, qtn_mark=qtn_mark)
         db.session.add(question)
         db.session.commit()
         if question.id:
-            for (answer, text) in questionOptions.entries.data:
-                option  = QuestionOption(question.id, answer, text)
-                db.session.add(option)
+            for entry in form.option.entries:
+                if entry.data['answer'] is True:
+                    answer = 1
+                else:
+                    answer = 0
+                if entry.data['text'] is not None:
+                    
+                    option = QuestionOption(
+                        question.id, answer, entry.data['text'])
+                    db.session.add(option)
+                else:
+                    pass
+
             db.session.commit()
-            redirect("/" + question.id + "/question/add")
+            redirect("/quiz/" + id + "/question/add")
         else:
             redirect("/home")
 
