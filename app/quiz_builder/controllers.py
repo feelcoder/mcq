@@ -46,6 +46,13 @@ def viewQuiz(id):
     currentQuiz = Quiz.query.filter_by(id=id).first()
     return render_template("quiz_builder/quizview.html", quiz=currentQuiz)
 
+@quiz.route('questions/interview/<id>', methods=['GET'])
+def interview(id):
+    # get quiz questions from database
+    currentQuiz = Quiz.query.filter_by(id=id).first()
+    questions = Question.query.filter_by(quid=id).all()
+    return render_template("quiz/takeQuiz.html", quiz=currentQuiz)
+
 
 @quiz.route('/<id>/question/add', methods=['GET', 'POST'])
 def questionAdd(id):
