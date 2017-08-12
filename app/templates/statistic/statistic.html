@@ -17,14 +17,14 @@
             <div class="row">
                 {% if quiz %}
                     {% for temp in quiz %}
-                        <div class="col-sm-3"  data-toggle="modal" data-target="#{{ temp.quid }}" style="cursor:pointer">
+                        <div class="col-sm-3"  data-toggle="modal" data-target="#{{ temp.id }}{{ temp.title }}" style="cursor:pointer">
                             <div class="well" style="background-color: #333333; color: #ffffff;">
                                 <h4>{{temp.title}}</h4>
                                 <p style="position:absolute; bottom:10%; right: 7%;">{{ temp.created }}</p>
                             </div>
                         </div>
                         <!-- Modal -->
-                        <div id="{{ temp.quid }}" class="modal fade" role="dialog" style="position: absolute">
+                        <div id="{{ temp.id }}{{ temp.title }}" class="modal fade" role="dialog" style="position: absolute">
                             <div class="modal-dialog">
                                 <!-- Modal content-->
                                 <div class="modal-content">
@@ -33,7 +33,7 @@
                                         <h4 class="modal-title">{{ temp.title }}</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Some text in the modal.</p>
+                                        <p>Number of students expected to take quiz- {{ temp.student_count }}.</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
