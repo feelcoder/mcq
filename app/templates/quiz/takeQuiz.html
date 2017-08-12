@@ -24,7 +24,7 @@
                  </div>
               </div>
               <div class="row">
-                <form action="/quiz/save" method="POST">
+                <form action="/quiz/save/{{quiz.id}}" method="POST">
                     {% if questions %}
                         {% for question in questions %}
                         
@@ -35,15 +35,15 @@
                                 </div>
                                 {% if question.options %}
                                      {% for option in question.options %}
-                                          <div class="col-sm-6">
-                                            <input type="radio" name="answers[{{question.id}}]" value="{{option.id}}">
-                                             <h5>{{option.text}}</h5>
+                                          <div class="col-sm-12 col-md-12 form-group form-inline">
+                                            <input type="checkbox" name="answers[{{question.id}}]" value="false" />
+                                            <h5>{{option.text}}</h5>
                                           </div>
                                       {% endfor %}
                                 {% endif %}
                                
                             </section>
-                        
+    
                         {% endfor %}
                         <div class="form-group">
                             <button type="submit">Save</button>
