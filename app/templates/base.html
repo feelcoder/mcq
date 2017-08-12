@@ -1,7 +1,8 @@
 <html>
 <head>
 {% block head %}
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../static/css/statistic.css" />
 <title>{% block title %}{% endblock %} - My Application</title>
 {% endblock %}
 </head>
@@ -18,7 +19,7 @@
                         </li>
                         <li role="quiz"><a href="{{ url_for('quiz', name='jojo') }}"><button>Home</button></a>
                         </li>
-                        <li role="quiz"><a href="/stat/statistic"><button>Home</button></a>
+                        <li role="quiz"><a href="/stat/statistic"><button>Dashboard</button></a>
                         </li>
                     </ul>
                 </nav>
@@ -33,5 +34,7 @@
      </div>
 {% endblock %}
   </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
