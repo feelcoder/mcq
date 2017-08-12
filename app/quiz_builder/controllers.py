@@ -10,7 +10,7 @@ from werkzeug import check_password_hash, generate_password_hash
 from app import db
 
 # Import module forms
-from app.quiz_builder.forms import QuizAddForm, QuestionForm
+from app.quiz_builder.forms import QuizAddForm, QuestionForm, PassQuizForm
 # Import module models (i.e. User)
 from app.quiz_builder.models import Quiz, Question, QuestionOption
 
@@ -50,18 +50,25 @@ def viewQuiz(id):
 @quiz.route('/exams',methods=['GET','POST'])
 def statResult():
 
-    quiz = Quiz.query.filter_by(uid = "first1234").all();
-    quizCount = Quiz.query.filter_by(uid="first1234").count();
-    return render_template('quiz/list.html', quiz = quiz,quizCount = quizCount)
+    quiz = Quiz.query.filter_by(uid = "1234").all();
+    quizCount = Quiz.query.filter_by(uid="1234").count();
+    return render_template('quiz/list.html', quiz = quiz)
 
 
-@quiz.route('questions/interview/<id>', methods=['GET'])
+@quiz.route('/live/<id>', methods=['GET'])
 def interview(id):
     # get quiz questions from database
     currentQuiz = Quiz.query.filter_by(id=id).first()
     questions = Question.query.filter_by(quid=id).all()
-    return render_template("quiz/takeQuiz.html", quiz=currentQuiz)
+    for question in questions: 
+        tmpOptions = QuestionOption.query.filter_by(qtn_id=question.id).all()
+        question.options = tmpOptions
+    return render_template("quiz/takeQuiz.html", quiz=currentQuiz, questions=questions)
 
+@quiz.route('/save', methods=['GET', 'POST'])
+def save():
+    form = PassQuizForm(request.form)
+    print(form)
 
 @quiz.route('/<id>/question/add', methods=['GET', 'POST'])
 def questionAdd(id):

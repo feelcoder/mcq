@@ -38,3 +38,7 @@ class QuestionForm(Form):
     qtn_mark = HiddenField(validators=[Required('')],default=1)
     option = FieldList(FormField(QuestionOptionForm), min_entries=4)
     submit = SubmitField("create")
+
+class PassQuizForm(Form):
+    answers = FieldList(FormField(QuestionOptionForm))
+    submit = SubmitField("create")
