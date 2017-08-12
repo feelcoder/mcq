@@ -10,7 +10,7 @@ from werkzeug import check_password_hash, generate_password_hash
 from app import db
 
 # Import module forms
-from app.quiz_builder.forms import QuizAddForm, QuestionForm
+from app.quiz_builder.forms import QuizAddForm, QuestionForm, QuestionOptionForm
 # Import module models (i.e. User)
 from app.quiz_builder.models import Quiz, Question, QuestionOption
 
@@ -44,15 +44,19 @@ def quizform():
 @quiz.route('/view/<id>', methods=['GET'])
 def viewQuiz(id):
     # get quiz from database
+    
     currentQuiz = Quiz.query.filter_by(id=id).first()
-    return render_template("quiz_builder/quizview.html", quiz=currentQuiz)
+    questions = Question.query.filter_by(quid=id).all()
+    
+    return render_template("quiz_builder/quizview.html", quiz=currentQuiz,questions=questions)
 
-@quiz.route('/exams',methods=['GET','POST'])
+
+@quiz.route('/exams', methods=['GET', 'POST'])
 def statResult():
 
-    quiz = Quiz.query.filter_by(uid = "first1234").all();
-    quizCount = Quiz.query.filter_by(uid="first1234").count();
-    return render_template('quiz/list.html', quiz = quiz,quizCount = quizCount)
+    quiz = Quiz.query.filter_by(uid="first1234").all()
+    quizCount = Quiz.query.filter_by(uid="first1234").count()
+    return render_template('quiz/list.html', quiz=quiz, quizCount=quizCount)
 
 
 @quiz.route('questions/interview/<id>', methods=['GET'])
@@ -62,22 +66,36 @@ def interview(id):
     questions = Question.query.filter_by(quid=id).all()
     return render_template("quiz/takeQuiz.html", quiz=currentQuiz)
 
-
-@quiz.route('/<id>/question/add', methods=['GET', 'POST'])
-def questionAdd(id):
+@quiz.route('/<id>/question/add', methods=['GET', 'POST'], defaults={'qtn_id': None})
+@quiz.route('/<id>/question/add/<qtn_id>', methods=['GET', 'POST'])
+def questionAdd(id, qtn_id):
     form = QuestionForm(request.form)
+    if request.method == 'GET' and qtn_id is not None:
+        question = Question.query.filter_by(id=qtn_id).first()
+        form.text.data = question.text
+    
+        # create a list of of entries
+        questionOption = QuestionOption.query.filter_by(
+            qtn_id=question.id).all()
+        print(len(questionOption))
+        for qtn_option in questionOption:
+            new_option = form.option.append_entry();
+            new_option.answer.data = qtn_option.answer
+            new_option.text.data = qtn_option.text
+            
+      
     quiz = Quiz.query.filter_by(id=id).first()
     for entry in form.option.entries:
-        pprint(entry.data)
+        print(type(entry))
     print(form.validate_on_submit())
     if form.validate_on_submit():
         # build question tables
         # pprint(getmembers(form))
-        print("we are in validates submit")
         qtn_text = form.text.data
         qtn_type = form.qtype.data
         qtn_mark = form.qtn_mark.data
-        question = Question(quid=id, text=qtn_text, type=qtn_type, qtn_mark=qtn_mark)
+        question = Question(quid=id, text=qtn_text,
+                            type=qtn_type, qtn_mark=qtn_mark)
         db.session.add(question)
         db.session.commit()
         if question.id:
@@ -87,7 +105,7 @@ def questionAdd(id):
                 else:
                     answer = 0
                 if entry.data['text'] is not None:
-                    
+
                     option = QuestionOption(
                         question.id, answer, entry.data['text'])
                     db.session.add(option)
@@ -95,8 +113,8 @@ def questionAdd(id):
                     pass
 
             db.session.commit()
-            redirect("/quiz/" + id + "/question/add")
+            return redirect("/quiz/view/" + str(id))
         else:
-            redirect("/home")
+            return redirect("/home")
 
     return render_template("quiz_builder/quiz_question_add.html", form=form, quiz=quiz)
