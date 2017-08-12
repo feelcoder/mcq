@@ -11,6 +11,14 @@ SQLALCHEMY_DATABASE_URI = 'mysql://root:arleneflavie@localhost/mcq-database'
 
 DATABASE_CONNECT_OPTIONS = {}
 
+# Config MySQL
+MYSQL_HOST = 'localhost'
+MYSQL_USER = 'root'
+MYSQL_PASSWORD = 'arleneflavie'
+MYSQL_DB = 'mcq-database'
+MYSQL_CURSORCLASS = 'DictCursor'
+
+
 # Application threads. A common general assumption is
 # using 2 per available processor cores - to handle
 # incoming requests using one and performing background
