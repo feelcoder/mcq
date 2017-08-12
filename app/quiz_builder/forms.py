@@ -36,7 +36,7 @@ class QuestionForm(Form):
     text = TextField('Question', [Required('Title cannot be left blank')])
     qtype = HiddenField(validators=[Required('')],default="radio")
     qtn_mark = HiddenField(validators=[Required('')],default=1)
-    option = FieldList(FormField(QuestionOptionForm), min_entries=4)
+    option = FieldList(FormField(QuestionOptionForm), min_entries=1)
     submit = SubmitField("create")
 
 class PassQuizForm(Form):

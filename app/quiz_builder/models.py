@@ -55,7 +55,6 @@ class Question(Base):
     # New instance instantiation procedure
 
     def __init__(self,quid=quid, type=type, text=text, qtn_mark=qtn_mark):
-        
         self.quid = quid
         self.type = type
         self.text = text

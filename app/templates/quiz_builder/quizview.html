@@ -3,7 +3,11 @@
 {% block title %}Quiz: {{ quiz.title }}{% endblock %}
  {% block sidebar %}
   <div class="sidebar col-md-4">
-     sidebar
+     <ul class="list-group">
+     {% for question in questions %}
+            <li class="list-group-item"> <a href="/quiz/{{ quiz.id }}/question/add/{{ question.id }}">{{ question.text }}</a></li>
+     {% endfor %}
+     </ul>
   </div>
   {% endblock %}
   {% block main %}
