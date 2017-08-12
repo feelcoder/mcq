@@ -24,9 +24,6 @@ class User(Base):
     # User Name
     username = db.Column(db.String(45),  nullable=False)
 
-    # User Name
-    uid = db.Column(db.String(45), nullable=False)
-
     # Identification Data: email & password
     email = db.Column(db.String(128),  nullable=False,unique=True)
 

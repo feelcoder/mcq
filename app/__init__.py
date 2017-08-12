@@ -6,16 +6,19 @@ from flask_sqlalchemy import SQLAlchemy
 
 # Import Bootstrap
 from flask_bootstrap import Bootstrap
-
+from flask_mysqldb import MySQL
 # Define the WSGI application object
 app = Flask(__name__)
 
 # Configurations
 app.config.from_object('config')
 
+
 # Define the database object which is imported
 # by modules and controllers
 db = SQLAlchemy(app)
+# init MYSQL
+mysql = MySQL(app)
 
 # Bootstrap
 bootstrap = Bootstrap(app) 
