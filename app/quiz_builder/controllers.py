@@ -47,6 +47,14 @@ def viewQuiz(id):
     currentQuiz = Quiz.query.filter_by(id=id).first()
     return render_template("quiz_builder/quizview.html", quiz=currentQuiz)
 
+@quiz.route('/exams',methods=['GET','POST'])
+def statResult():
+
+    quiz = Quiz.query.filter_by(uid = "first1234").all();
+    quizCount = Quiz.query.filter_by(uid="first1234").count();
+    return render_template('quiz/list.html', quiz = quiz,quizCount = quizCount)
+
+
 @quiz.route('questions/interview/<id>', methods=['GET'])
 def interview(id):
     # get quiz questions from database
