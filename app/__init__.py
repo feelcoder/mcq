@@ -42,10 +42,12 @@ def quiz(name):
 from app.authentication.controllers import authentication as auth
 from app.quiz_builder.controllers import quiz as quiz
 from  app.statistic.controllers import statistic as stat
+#from  app.quiz.controllers import takeQuiz as takeQuiz
 # Register blueprint(s)
 app.register_blueprint(auth)
 app.register_blueprint(quiz)
 app.register_blueprint(stat)
+#app.register_blueprint(takeQuiz)
 # app.register_blueprint(xyz_module)
 # ..
 
