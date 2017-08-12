@@ -59,7 +59,7 @@ class Question(Base):
     qtn_mark = db.Column(db.Integer, nullable=True)
     # New instance instantiation procedure
 
-    def __init__(quid, qtype, qtext, qtn_mark):
+    def __init__(self,quid, qtype, qtext, qtn_mark):
 
         self.quid = quid
         self.type = qtype

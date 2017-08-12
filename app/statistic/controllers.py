@@ -25,7 +25,7 @@ def statResult():
 
     db.create_all()
     users = User.query.all()
-    user = User.query.filter_by(username = "Lea").first();
+    user = User.query.filter_by(uid = "first1234").first();
     quiz = Quiz.query.filter_by(uid = "first1234").all();
     quizCount = Quiz.query.filter_by(uid="first1234").count();
     #highestScore = Session.query
